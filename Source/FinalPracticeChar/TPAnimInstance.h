@@ -14,4 +14,9 @@ class FINALPRACTICECHAR_API UTPAnimInstance : public UAnimInstance
 {
 	GENERATED_BODY()
 	
+public:
+	virtual void NativeUpdateAnimation(float DeltaSeconds) override;
+
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Stat")
+	float Speed;
 };
