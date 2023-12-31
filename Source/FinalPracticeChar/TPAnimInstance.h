@@ -19,4 +19,11 @@ public:
 
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Stat")
 	float Speed;
+
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Stat")
+	bool ShouldMove;
+
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Stat")
+	bool IsFalling;
+
 };
