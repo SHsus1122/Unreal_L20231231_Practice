@@ -26,4 +26,6 @@ public:
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Stat")
 	bool IsFalling;
 
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Stat")
+	FVector Velocity;
 };

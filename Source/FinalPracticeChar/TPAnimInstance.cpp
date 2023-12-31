@@ -13,8 +13,9 @@ void UTPAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 	ACharacter* MyChar = Cast<ACharacter>(TryGetPawnOwner());
 	if (IsValid(MyChar))
 	{
-		
 		Speed = MyChar->GetCharacterMovement()->Velocity.Size2D();
+
+		Velocity = MyChar->GetCharacterMovement()->Velocity;
 
 		ShouldMove = (Speed > 3.0f) && UKismetMathLibrary::NotEqual_VectorVector(MyChar->GetCharacterMovement()->GetCurrentAcceleration(), FVector::ZeroVector, 0);
 		IsFalling = MyChar->GetCharacterMovement()->IsFalling();
