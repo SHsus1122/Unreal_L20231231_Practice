@@ -6,6 +6,8 @@
 #include "GameFramework/PlayerController.h"
 #include "TPPlayerController.generated.h"
 
+class UInputMappingContext;
+
 /**
  * 
  */
@@ -14,5 +16,9 @@ class FINALPRACTICECHAR_API ATPPlayerController : public APlayerController
 {
 	GENERATED_BODY()
 	
+public:
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Input")
+	TObjectPtr<UInputMappingContext> DefaultIMC;
 
+	virtual void BeginPlay() override;
 };

@@ -4,10 +4,12 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "InputActionValue.h"
 #include "TPCharacter.generated.h"
 
 class USpringArmComponent;
 class UCameraComponent;
+class UInputAction;
 
 UCLASS()
 class FINALPRACTICECHAR_API ATPCharacter : public ACharacter
@@ -34,4 +36,17 @@ public:
 
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = "Components")
 	TObjectPtr<UCameraComponent> Camera;
+
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Input")
+	TObjectPtr<UInputAction> IA_Jump;
+
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Input")
+	TObjectPtr<UInputAction> IA_Move;
+
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Input")
+	TObjectPtr<UInputAction> IA_Look;
+
+	void Move(const FInputActionValue& Value);
+	
+	void Look(const FInputActionValue& Value);
 };

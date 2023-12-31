@@ -5,6 +5,8 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
+#include "EnhancedInputComponent.h"
+#include "Kismet/KismetMathLibrary.h"
 
 // Sets default values
 ATPCharacter::ATPCharacter()
@@ -41,5 +43,36 @@ void ATPCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
+	UEnhancedInputComponent* UEIC = Cast<UEnhancedInputComponent>(PlayerInputComponent);
+	if (UEIC)
+	{
+		UEIC->BindAction(IA_Jump, ETriggerEvent::Started, this, &ATPCharacter::Jump);
+		UEIC->BindAction(IA_Jump, ETriggerEvent::Completed, this, &ATPCharacter::Jump);
+
+		UEIC->BindAction(IA_Move, ETriggerEvent::Triggered, this, &ATPCharacter::Move);
+		UEIC->BindAction(IA_Look, ETriggerEvent::Triggered, this, &ATPCharacter::Look);
+	}
+}
+
+void ATPCharacter::Move(const FInputActionValue& Value)
+{
+	FVector2D Dir = Value.Get<FVector2D>();
+
+	FRotator CameraRotation = GetControlRotation();
+	FRotator DirectionRot = FRotator(0, CameraRotation.Yaw, 0);
+
+	FVector ForWardVector = UKismetMathLibrary::GetForwardVector(DirectionRot);
+	FVector RightVector = UKismetMathLibrary::GetRightVector(DirectionRot);
+
+	AddMovementInput(ForWardVector, Dir.Y);
+	AddMovementInput(RightVector, Dir.X);
+}
+
+void ATPCharacter::Look(const FInputActionValue& Value)
+{
+	FVector2D Dir = Value.Get<FVector2D>();
+
+	AddControllerYawInput(Dir.X);
+	AddControllerPitchInput(Dir.Y);
 }
 
